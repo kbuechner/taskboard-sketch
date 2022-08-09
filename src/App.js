@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Group from "./components/Group/Group";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
+    const boardId = process.env.REACT_APP_BOARD_ID;
+    const url = `https://dev-game-services.objectiveed.com/boards/${boardId}/groups`;
+
+    return (
+        <div className="App">
+            <header className="App-header">Taskboard Sketch</header>
+            <Group accessToken={accessToken} url={url}>
+                "HI"
+            </Group>
+        </div>
+    );
 }
 
 export default App;
