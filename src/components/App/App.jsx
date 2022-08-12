@@ -1,6 +1,5 @@
 import "./App.css";
-import Group from "./components/Group/Group";
-
+import Group from "../Group/Group";
 function App() {
     const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
     const boardId = process.env.REACT_APP_BOARD_ID;
