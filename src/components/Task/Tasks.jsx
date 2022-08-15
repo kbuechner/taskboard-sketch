@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from "react";
+import { Header, Segment } from "semantic-ui-react";
 
 const Tasks = (props) => {
     const [data, setData] = useState(null);
@@ -37,22 +38,27 @@ const Tasks = (props) => {
                 setLoading(false);
             });
     }, []);
+
     return (
         <div className="App">
-            <h2>Tasks</h2>
-            {loading && <div>A moment please...</div>}
-            {error && (
-                <div>{`There is a problem fetching the post data - ${error}`}</div>
-            )}
-            <ul>
-                {data &&
-                    data.map(({ id, name, body }) => (
-                        <li key={id}>
-                            <h3>{name}</h3>
-                            <div>{body}</div>
-                        </li>
-                    ))}
-            </ul>
+            <Header as="h2" attached="top">
+                Tasks
+            </Header>
+            <Segment attached>
+                {loading && <div>A moment please...</div>}
+                {error && (
+                    <div>{`There is a problem fetching the post data - ${error}`}</div>
+                )}
+                <ul>
+                    {data &&
+                        data.map(({ id, name, body }) => (
+                            <li key={id}>
+                                <h3>{name}</h3>
+                                <div>{body}</div>
+                            </li>
+                        ))}
+                </ul>
+            </Segment>
         </div>
     );
 };
