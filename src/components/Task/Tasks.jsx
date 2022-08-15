@@ -1,4 +1,6 @@
 import { React, useState, useEffect } from "react";
+import { Grid, Box, Paper } from "@mui/material";
+import { styled } from "@mui/material/styles";
 
 const Tasks = (props) => {
     const [data, setData] = useState(null);
@@ -37,23 +39,34 @@ const Tasks = (props) => {
                 setLoading(false);
             });
     }, []);
+
+    const Item = styled(Paper)(({ theme }) => ({
+        backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+        ...theme.typography.body2,
+        padding: theme.spacing(1),
+        textAlign: "center",
+        color: theme.palette.text.secondary,
+    }));
+
     return (
-        <div className="App">
+        <Grid container spacing={1}>
             <h2>Tasks</h2>
-            {loading && <div>A moment please...</div>}
+            {loading && <Grid item>A moment please...</Grid>}
             {error && (
-                <div>{`There is a problem fetching the post data - ${error}`}</div>
+                <Grid
+                    item
+                >{`There is a problem fetching the post data - ${error}`}</Grid>
             )}
-            <ul>
-                {data &&
-                    data.map(({ id, name, body }) => (
-                        <li key={id}>
+            {data &&
+                data.map(({ id, name, body }) => (
+                    <Grid item xs={4} key={id}>
+                        <Item>
                             <h3>{name}</h3>
                             <div>{body}</div>
-                        </li>
-                    ))}
-            </ul>
-        </div>
+                        </Item>
+                    </Grid>
+                ))}
+        </Grid>
     );
 };
 
