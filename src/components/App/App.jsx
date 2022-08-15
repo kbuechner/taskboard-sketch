@@ -1,18 +1,16 @@
 import "./App.css";
-import Group from "../Group/Group";
+import Groups from "../Group/Groups";
+import Tasks from "../Task/Tasks";
+import {accessToken, groupsUrl, tasksUrl} from "../../util/apiVars"
 
-function App() {
-    console.log(process.env)
-    const accessToken = process.env.REACT_APP_ACCESS_TOKEN;
-    const boardId = process.env.REACT_APP_BOARD_ID;
-    const url = `https://dev-game-services.objectiveed.com/boards/${boardId}/groups`;
+ function App() {
+
 
     return (
         <div className="App">
             <header className="App-header">Taskboard Sketch</header>
-            <Group accessToken={accessToken} url={url}>
-                "HI"
-            </Group>
+            <Groups accessToken={accessToken} url={groupsUrl} />
+            <Tasks accessToken={accessToken} url={tasksUrl} />
         </div>
     );
 }
