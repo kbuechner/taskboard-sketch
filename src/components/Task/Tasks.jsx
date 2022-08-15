@@ -49,7 +49,7 @@ const Tasks = (props) => {
     }));
 
     return (
-        <Grid container spacing={1}>
+        <Grid container>
             <h2>Tasks</h2>
             {loading && <Grid item>A moment please...</Grid>}
             {error && (
