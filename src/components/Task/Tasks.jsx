@@ -1,4 +1,6 @@
 import { React, useState, useEffect } from "react";
+import Task from "./Task";
+import { VStack, Heading, Container } from "@chakra-ui/react";
 
 const Tasks = (props) => {
     const [data, setData] = useState(null);
@@ -38,22 +40,21 @@ const Tasks = (props) => {
             });
     }, []);
     return (
-        <div className="App">
-            <h2>Tasks</h2>
-            {loading && <div>A moment please...</div>}
-            {error && (
-                <div>{`There is a problem fetching the post data - ${error}`}</div>
-            )}
-            <ul>
-                {data &&
-                    data.map(({ id, name, body }) => (
-                        <li key={id}>
-                            <h3>{name}</h3>
-                            <div>{body}</div>
-                        </li>
-                    ))}
-            </ul>
-        </div>
+        <Container maxW="container.sm" align="center">
+            <Heading>Tasks</Heading>
+            <VStack maxW="container.sm">
+                {loading && <div>A moment please...</div>}
+                {error && (
+                    <div>{`There is a problem fetching the post data - ${error}`}</div>
+                )}
+                <ul>
+                    {data &&
+                        data.map(({ id, name, body }) => (
+                            <Task key={id} title={name} desc={body} />
+                        ))}
+                </ul>
+            </VStack>
+        </Container>
     );
 };
 

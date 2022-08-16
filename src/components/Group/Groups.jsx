@@ -1,12 +1,10 @@
 import { React, useState, useEffect } from "react";
-import Tasks from "../Task/Tasks";
+import { Container, Grid, GridItem, Heading, Text } from "@chakra-ui/react";
 
 const Groups = (props) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
-  
 
     const { accessToken, url, ...children } = props;
     const requestHeaders = {
@@ -22,43 +20,50 @@ const Groups = (props) => {
     useEffect(() => {
         fetch(url, requestOptions)
             .then((res) => {
-              if (!res.ok) {
-                throw new Error(
-                  `HTTP error status ${res.status}`
-                );
-              }
-              return res.json()
+                if (!res.ok) {
+                    throw new Error(`HTTP error status ${res.status}`);
+                }
+                return res.json();
             })
             .then((data) => {
                 setData(data);
-                setError(null)
+                setError(null);
             })
-            .catch((err) =>{ 
-              setError(err.message)
-              console.error("error :", err)
+            .catch((err) => {
+                setError(err.message);
+                console.error("error :", err);
             })
-            .finally(()=> {
-              setLoading(false);
+            .finally(() => {
+                setLoading(false);
             });
     }, []);
 
     return (
-      <div className="App">
-        <h2>Groups</h2>
-        {loading && <div>A moment please...</div>}
-        {error && (
-          <div>{`There is a problem fetching the post data - ${error}`}</div>
-        )}
-        <ul>
-          {data &&
-            data.map(({ id, name, description }) => (
-              <li key={id}>
-                <h3>{name}</h3>
-                <div>{description}</div>{console.log(url)}
-              </li>
-            ))}
-        </ul>
-      </div>
-    );};
+        <Container>
+            <Heading>Groups</Heading>
+            {console.log(data)}
+            {loading && <Text>A moment please...</Text>}
+            {error && (
+                <Text>{`There is a problem fetching data - ${error}`}</Text>
+            )}
+            {data && (
+                <Grid
+                    templateRows="repeat(1, 1fr)"
+                    templateColumns={`repeat(${data.length}, 1fr)`}
+                    gap={2}
+                >
+                    {data.map(({ id, name, description }) => (
+                        <GridItem colSpan={1} key={id} id={id}>
+                            <Heading as="h3" fontSize="xl">
+                                {name}
+                            </Heading>
+                            <Text>{description}</Text>
+                        </GridItem>
+                    ))}
+                </Grid>
+            )}
+        </Container>
+    );
+};
 
 export default Groups;
